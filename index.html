@@ -21,14 +21,19 @@
     <input id="inputAmount" type="text">
     <input id="inputDesc" type="text">
     <button id = "btnCounter">+</button> 
-    
+    <div id="expenseTable"></div>
+
     <script>
+
         const headingEl = document.querySelector("#headingTotal");
         const inputDescEl = document.querySelector("#inputDesc");
         const inputElement = document.querySelector("#inputAmount");
+        const expenseTableEl = document.querySelector("#expenseTable");
+
         let totalExpense = 0;
         headingEl.textContent = totalExpense;
         const allExpense = [];
+
         function addExpenseToTotal(){     
             const expenseItem = {};
             const textAmount = inputElement.value;
@@ -40,15 +45,30 @@
             expenseItem.amount=expense;
             allExpense.push(expenseItem);
 
-            console.clear();
-            console.table(allExpense);
-
             totalExpense = totalExpense + expense;
-            console.log({totalExpense});
-            headingEl.textContent = totalExpense;
+            
+            const someText = `Expenses: ${totalExpense}`;
+            headingEl.textContent = someText;
+            
+            const data1 = allExpense[0];
+            const data2 = allExpense[1];
+
+            const data1Text = `Expense: ${data1.amount} Desc: ${data1.desc}`;
+            const data2Text = `Expense: ${data2.amount} Desc: ${data2.desc}`;
+
+            const tableText = `
+            <div>${data1Text}</div>
+            <div>${data2Text}</div>
+            `
+
+            expenseTableEl.innerHTML = data1Text + data2Text;
+
         }
+
         const element = document.querySelector("#btnCounter");
         element.addEventListener("click", addExpenseToTotal, false);
+        
+
 
     </script>
 
